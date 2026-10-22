@@ -12,11 +12,47 @@ import { ExportModal } from './components/ExportModal';
 import { LayoutDashboard, GitBranch, Clock, Database, FileCheck, Search, ExternalLink } from 'lucide-react';
 
 export const App: React.FC = () => {
-  const [selectedCaseId, setSelectedCaseId] = useState<string>('case-01');
-  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'TOPOLOGY' | 'TIMELINE' | 'LEDGER' | 'REPORT' | 'SCANNER'>('OVERVIEW');
+  const [selectedCaseId, setSelectedCaseId] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      return p.get('case') || 'case-01';
+    }
+    return 'case-01';
+  });
+  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'TOPOLOGY' | 'TIMELINE' | 'LEDGER' | 'REPORT' | 'SCANNER'>(() => {
+    if (typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      const t = p.get('tab')?.toUpperCase();
+      if (t && ['OVERVIEW', 'TOPOLOGY', 'TIMELINE', 'LEDGER', 'REPORT', 'SCANNER'].includes(t)) {
+        return t as any;
+      }
+    }
+    return 'OVERVIEW';
+  });
   const [isExportOpen, setIsExportOpen] = useState<boolean>(false);
 
   const currentCase = INVESTIGATION_CASES.find((c) => c.id === selectedCaseId) || INVESTIGATION_CASES[0];
+
+  const handleSelectCase = (id: string) => {
+    setSelectedCaseId(id);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.set('case', id);
+      window.history.replaceState({}, '', url.toString());
+    }
+    if (activeTab === 'SCANNER') {
+      setActiveTab('OVERVIEW');
+    }
+  };
+
+  const handleSelectTab = (tab: 'OVERVIEW' | 'TOPOLOGY' | 'TIMELINE' | 'LEDGER' | 'REPORT' | 'SCANNER') => {
+    setActiveTab(tab);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', tab);
+      window.history.replaceState({}, '', url.toString());
+    }
+  };
 
   const tabs = [
     { id: 'OVERVIEW', label: 'Executive Dossier', icon: LayoutDashboard },
@@ -43,12 +79,7 @@ export const App: React.FC = () => {
         <CaseSelector
           cases={INVESTIGATION_CASES}
           selectedCaseId={selectedCaseId}
-          onSelectCase={(id) => {
-            setSelectedCaseId(id);
-            if (activeTab === 'SCANNER') {
-              setActiveTab('OVERVIEW');
-            }
-          }}
+          onSelectCase={handleSelectCase}
         />
 
         {/* View Navigation Sub-Tabs */}
@@ -59,7 +90,7 @@ export const App: React.FC = () => {
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleSelectTab(tab.id)}
                 className={`flex items-center gap-2 px-3 py-2 rounded font-medium transition-all whitespace-nowrap ${
                   isActive
                     ? 'bg-[#181d2a] text-[#f59e0b] border border-[#f59e0b]/40'
