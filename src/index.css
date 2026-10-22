@@ -1,59 +1,57 @@
-@layer base {
-  :root {
-    --bg-base: #08090d;
-    --bg-card: #0f1118;
-    --bg-card-hover: #141722;
-    --bg-elevated: #181c28;
-    --bg-subtle: #12141c;
-    
-    --border-subtle: #1b1e2a;
-    --border-default: #252a3a;
-    --border-strong: #373f55;
-    --border-accent: #f59e0b;
+@import "tailwindcss";
 
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    --text-accent: #f59e0b;
+:root {
+  --bg-base: #08090d;
+  --bg-card: #0f1118;
+  --bg-card-hover: #141722;
+  --bg-elevated: #181c28;
+  --bg-subtle: #12141c;
+  
+  --border-subtle: #1b1e2a;
+  --border-default: #252a3a;
+  --border-strong: #373f55;
+  --border-accent: #f59e0b;
 
-    --status-red: #ef4444;
-    --status-red-bg: rgba(239, 68, 68, 0.12);
-    --status-red-border: rgba(239, 68, 68, 0.28);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-accent: #f59e0b;
 
-    --status-green: #10b981;
-    --status-green-bg: rgba(16, 185, 129, 0.12);
-    --status-green-border: rgba(16, 185, 129, 0.28);
+  --status-red: #ef4444;
+  --status-red-bg: rgba(239, 68, 68, 0.12);
+  --status-red-border: rgba(239, 68, 68, 0.28);
 
-    --status-amber: #f59e0b;
-    --status-amber-bg: rgba(245, 158, 11, 0.12);
-    --status-amber-border: rgba(245, 158, 11, 0.28);
+  --status-green: #10b981;
+  --status-green-bg: rgba(16, 185, 129, 0.12);
+  --status-green-border: rgba(16, 185, 129, 0.28);
 
-    --status-blue: #38bdf8;
-    --status-blue-bg: rgba(56, 189, 248, 0.12);
-    --status-blue-border: rgba(56, 189, 248, 0.28);
+  --status-amber: #f59e0b;
+  --status-amber-bg: rgba(245, 158, 11, 0.12);
+  --status-amber-border: rgba(245, 158, 11, 0.28);
 
-    --font-mono: 'JetBrains Mono', monospace;
-    --font-sans: 'Inter', sans-serif;
-  }
+  --status-blue: #38bdf8;
+  --status-blue-bg: rgba(56, 189, 248, 0.12);
+  --status-blue-border: rgba(56, 189, 248, 0.28);
+
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  background-color: var(--bg-base);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
+  background-color: #08090d;
+  color: #f8fafc;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
 
 code, pre, .font-mono {
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', monospace;
 }
 
 /* Custom Scrollbar */
@@ -62,7 +60,7 @@ code, pre, .font-mono {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-base);
+  background: #08090d;
 }
 ::-webkit-scrollbar-thumb {
   background: #252a3a;
@@ -135,7 +133,7 @@ code, pre, .font-mono {
 .badge-neutral {
   background-color: #1a1e2b;
   border: 1px solid #2d3346;
-  color: var(--text-secondary);
+  color: #94a3b8;
 }
 
 .btn {
@@ -190,7 +188,7 @@ code, pre, .font-mono {
 .data-table th {
   text-align: left;
   padding: 10px 14px;
-  color: var(--text-muted);
+  color: #64748b;
   font-family: var(--font-mono);
   font-size: 11px;
   text-transform: uppercase;
@@ -202,7 +200,7 @@ code, pre, .font-mono {
 .data-table td {
   padding: 12px 14px;
   border-bottom: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
+  color: #94a3b8;
 }
 
 .data-table tr:hover td {
@@ -219,6 +217,9 @@ code, pre, .font-mono {
 }
 
 .pulse-dot-red {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background-color: #ef4444;
   box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
 }
